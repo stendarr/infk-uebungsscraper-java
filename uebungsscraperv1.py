@@ -101,3 +101,8 @@ print('[3/4]\n\n')
 print('[4/4] Lineare Algebra:')
 la_ex_counter = 0
 la_ex_url = ''
+
+print('[4/4]\n\n')
+
+
+input('EOF') #Just so Windows users don't get butthurt about not seeing the output
