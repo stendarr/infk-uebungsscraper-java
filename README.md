@@ -7,4 +7,4 @@ Python3 with the `requests` library and a folder `Uebungen` with the subfolders 
 `DiskreteMathematik`, `EProg` and `LineareAlgebra` where you execute this script.
 
 ## "XY doesn't work"
-Fix it yourself or open and issue if you think I'm not already working on it.
+Fix it yourself. Or open and issue if you think I'm not already working on it.
