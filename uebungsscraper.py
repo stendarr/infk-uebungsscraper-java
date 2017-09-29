@@ -1,5 +1,5 @@
 '''
-Make sure you have >requests< installed -> pip install requests
+Make sure you have `requests` and `bs4` installed -> pip install requests/bs4
 This project uses the WTFPL License
 
 Checklist | Uebung | Loesung | Material
@@ -42,100 +42,87 @@ directories = ["Uebungen/AlgorithmenUndDatenstrukturen", "Uebungen/DiskreteMathe
 for i in directories:
     if not os.path.isdir(i):
         os.makedirs(i)
-        print(i, " generated") 
+        print("This folder was generated: ",i) 
     else:
-        print(i, " exists")
+        print("This folder already exists: ",i)
 print("\n\n")
 
 
 #START Algorithmen und Datenstrukturen
 print('[1/4] Algorithmen und Datenstrukturen:')
-ad_ex_counter = 0
-ad_so_counter = 0
-ad_ex_url = 'https://www.cadmo.ethz.ch/education/lectures/HS17/DA/uebungen/Blatt'+str(ad_ex_counter)+'.pdf'
-ad_so_url = 'https://www.cadmo.ethz.ch/education/lectures/HS17/DA/uebungen/Loesung'+str(ad_so_counter)+'.pdf'
+ad_link = 'https://www.cadmo.ethz.ch/education/lectures/HS17/DA/index.html'
+ad_links =[]
+request = Request(ad_link, headers={'User-Agent' : user_agent})
+soup = BeautifulSoup(urllib.request.urlopen(request), 'html.parser')
 
-try:
-    while opener.open(ad_ex_url).getcode() == 200:
-        print(ad_ex_url)
-        urllib.request.urlretrieve(ad_ex_url, 'Uebungen/AlgorithmenUndDatenstrukturen/Blatt'+str(ad_ex_counter)+'.pdf')
-        ad_ex_counter += 1
-        ad_ex_url = 'https://www.cadmo.ethz.ch/education/lectures/HS17/DA/uebungen/Blatt'+str(ad_ex_counter)+'.pdf'
-except urllib.error.HTTPError:
-    pass
-print('')
-try:
-    while opener.open(ad_so_url).getcode() == 200:
-        print(ad_so_url)
-        urllib.request.urlretrieve(ad_so_url, 'Uebungen/AlgorithmenUndDatenstrukturen/Loesung'+str(ad_so_counter)+'.pdf')
-        ad_so_counter += 1
-        ad_so_url = 'https://www.cadmo.ethz.ch/education/lectures/HS17/DA/uebungen/Loesung'+str(ad_so_counter)+'.pdf'
-except urllib.error.HTTPError:
-    pass
+soup = str(soup).partition('<table id="uebungen">')[-1]
+soup = soup.rpartition('<h3>Fragen und Kommentare</h3>')[0]
+soup = BeautifulSoup(soup, 'html.parser')
+
+ad_link = 'https://www.cadmo.ethz.ch/education/lectures/HS17/DA/'
+
+for link in soup.find_all('a'):
+    ad_links.append(link.get('href'))
+
+for link in ad_links:
+    split = urllib.parse.urlsplit(link)
+    filename = 'Uebungen/AlgorithmenUndDatenstrukturen/'+split.path.split('/')[-1]
+    link = 'https://www.cadmo.ethz.ch/education/lectures/HS17/DA/'+link
+    print(link)
+    urllib.request.urlretrieve(link, filename)
 
 print('[1/4]\n\n')
 
 
-#START Diskrete Mathematik //no solutions available yet //This will break at 08,09,010
+#START Diskrete Mathematik
 print('[2/4] Diskrete Mathematik:')
-dm_ex_counter = 1
-dm_so_counter = 1
-dm_ex_url = 'http://www.crypto.ethz.ch/teaching/lectures/DM17/u0'+str(dm_ex_counter)+'.pdf'
-dm_so_url = 'http://www.crypto.ethz.ch/teaching/lectures/DM17/l0'+str(dm_ex_counter)+'.pdf'
+dm_link = 'http://www.crypto.ethz.ch/teaching/lectures/DM17/'
+dm_links =[]
+request = Request(dm_link, headers={'User-Agent' : user_agent})
+soup = BeautifulSoup(urllib.request.urlopen(request), 'html.parser')
 
-try:
-    while opener.open(dm_ex_url).getcode() == 200:
-        print(dm_ex_url)
-        urllib.request.urlretrieve(dm_ex_url, 'Uebungen/DiskreteMathematik/u0'+str(dm_ex_counter)+'.pdf')
-        dm_ex_counter += 1
-        dm_ex_url = 'http://www.crypto.ethz.ch/teaching/lectures/DM17/u0'+str(dm_ex_counter)+'.pdf'
-except urllib.error.HTTPError:
-    pass
+soup = str(soup).partition('<h3>Übungsblätter</h3>')[-1]
+soup = soup.rpartition('<h3>Übungsgruppen</h3>')[0]
+soup = BeautifulSoup(soup, 'html.parser')
 
-try:
-    while opener.open(dm_so_url).getcode() == 200:
-        print(dm_so_url)
-        urllib.request.urlretrieve(dm_so_url, 'Uebungen/DiskreteMathematik/l0'+str(dm_so_counter)+'.pdf')
-        dm_so_counter += 1
-        dm_so_url = 'http://www.crypto.ethz.ch/teaching/lectures/DM17/l0'+str(dm_so_counter)+'.pdf'
-except urllib.error.HTTPError:
-    pass
+for link in soup.find_all('a'):
+    dm_links.append(link.get('href'))
+
+for link in dm_links:
+    split = urllib.parse.urlsplit(link)
+    filename = 'Uebungen/DiskreteMathematik/'+split.path.split('/')[-1]
+    link = 'http://www.crypto.ethz.ch/teaching/lectures/DM17/'+link
+    print(link)
+    urllib.request.urlretrieve(link, filename)
 
 print('[2/4]\n\n')
 
 
 #START Einführung in die Programmierung
 print('[3/4] Einführung in die Programmierung:')
-ep_ex_counter = 0
-ep_mat_counter = 0
-ep_url = 'https://www.ethz.ch/content/dam/ethz/special-interest/infk/inst-cs/lst-dam/documents/Education/Classes/Fall2017/0027_Intro/Homework/u'
-ep_ex_url = ep_url+str(ep_ex_counter)+'.pdf'
-ep_mat_url = ep_url+str(ep_mat_counter)+'.zip'
+ep_link = 'http://www.lst.inf.ethz.ch/education/einfuehrung-in-die-programmierung-i--252-0027-.html'
+ep_links =[]
+request = Request(ep_link, headers={'User-Agent' : user_agent})
+soup = BeautifulSoup(urllib.request.urlopen(request), 'html.parser')
 
-try:
-    while opener.open(ep_ex_url).getcode() == 200:
-        print(ep_ex_url)
-        r = requests.get(ep_ex_url, allow_redirects=False, headers=headers)
-        with open('Uebungen/EProg/u'+str(ep_ex_counter)+'.pdf', 'wb') as f:
-            for chunk in r.iter_content(1024):
-                f.write(chunk)
-        ep_ex_counter += 1
-        ep_ex_url = ep_url+str(ep_ex_counter)+'.pdf'
-except urllib.error.HTTPError:
-    pass
-print('')
-try:
-    while opener.open(ep_mat_url).getcode() == 200:
-        print(ep_mat_url)
-        r = requests.get(ep_mat_url, allow_redirects=False, headers=headers)
-        with open('Uebungen/EProg/u'+str(ep_mat_counter)+'.zip', 'wb') as f:
-            for chunk in r.iter_content(1024):
-                f.write(chunk)
-        ep_mat_counter += 1
-        ep_mat_url = ep_url+str(ep_mat_counter)+'.zip'
-except urllib.error.HTTPError:
-    pass
+soup = str(soup).partition('<div class="par basecomponent parsys contains-table">')[-1]
+soup = soup.rpartition('<a class="accordionAnchor" href="#"><span class="title">Literatur und Hilfsmittel</span></a>')[0]
+soup = BeautifulSoup(soup, 'html.parser')
 
+for link in soup.find_all('a'):
+    ep_links.append(link.get('href'))
+
+del ep_links[0]
+
+for link in ep_links:
+    split = urllib.parse.urlsplit(link)
+    filename = 'Uebungen/EProg/'+split.path.split('/')[-1]
+    print(link)
+    r = requests.get(link, allow_redirects=False, headers=headers)
+    with open(filename, 'wb') as f:
+        for chunk in r.iter_content(1024):
+            f.write(chunk)
+    
 print('[3/4]\n\n')
 
 
@@ -149,8 +136,8 @@ soup = BeautifulSoup(urllib.request.urlopen(request), 'html.parser')
 
 soup = str(soup).partition('<h3>Übungen</h3>')[-1]
 soup = soup.rpartition('href="https://echo.ethz.ch/s/"  target="_blank" title="M')[0]
-
 soup = BeautifulSoup(soup, 'html.parser')
+
 for link in soup.find_all('a'):
     la_links.append(link.get('href'))
 
