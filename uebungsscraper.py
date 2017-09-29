@@ -14,13 +14,20 @@ LinAlg    |    n   |    n    |   n/a
 
 '''
 
-import urllib.request, urllib.parse, os, sys
+import urllib.request, urllib.parse, os, sys, http.client
 from urllib.request import Request, urlopen
+from html.parser import *
 try:
     import requests
 except:
-    print('Please install the library "requests"')
+    print('Installing BeautifulSoup is NOT optional, m8')
     sys.exit(0)
+try:
+    from bs4 import BeautifulSoup, SoupStrainer
+except:
+    print('Installing BeautifulSoup is NOT optional, m8')
+    sys.exit(0)
+    
 
 user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20120101 Firefox/33.0'
 headers = {'User-Agent' : user_agent}
@@ -134,8 +141,25 @@ print('[3/4]\n\n')
 
 #START Lineare Algebra
 print('[4/4] Lineare Algebra:')
-la_ex_counter = 0
-la_ex_url = ''
+la_link = 'http://igl.ethz.ch/teaching/linear-algebra/la2017/'
+la_links =[]
+user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20120101 Firefox/33.0'
+request = Request(la_link, headers={'User-Agent' : user_agent})
+soup = BeautifulSoup(urllib.request.urlopen(request), 'html.parser')
+
+soup = str(soup).partition('<h3>Übungen</h3>')[-1]
+soup = soup.rpartition('href="https://echo.ethz.ch/s/"  target="_blank" title="M')[0]
+
+soup = BeautifulSoup(soup, 'html.parser')
+for link in soup.find_all('a'):
+    la_links.append(link.get('href'))
+
+for link in la_links:
+    split = urllib.parse.urlsplit(link)
+    filename = 'Uebungen/LineareAlgebra/'+split.path.split('/')[-1]
+    link = 'http://igl.ethz.ch/teaching/linear-algebra/la2017/'+link
+    print(link)
+    urllib.request.urlretrieve(link, filename)
 
 print('[4/4]\n\n')
 
