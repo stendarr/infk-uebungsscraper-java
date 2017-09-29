@@ -1,15 +1,15 @@
 '''
 Make sure you have `requests` and `bs4` installed -> pip install requests/bs4
-This project uses the WTFPL License
+Check README.md and LICENSE before using
 
 Checklist | Uebung | Loesung | Material
-----------|-----------------------------
+----------|--------|---------|----------
 AlgDat    |    y   |    y    |   n/a
-----------|-----------------------------
+----------|--------|---------|----------
 DisMat    |    y   |    y    |   n/a
-----------|-----------------------------
+----------|--------|---------|----------
 EProg     |    y   |    n    |    y
-----------|-----------------------------
+----------|--------|---------|----------
 LinAlg    |    y   |    y    |    y
 
 '''
