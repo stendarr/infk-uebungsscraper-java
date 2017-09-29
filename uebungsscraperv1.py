@@ -6,7 +6,7 @@ Checklist | Uebung | Loesung | Material
 ----------|-----------------------------
 AlgDat    |    y   |    y    |   n/a
 ----------|-----------------------------
-DisMat    |    y   |    n    |   n/a
+DisMat    |    y   |    y    |   n/a
 ----------|-----------------------------
 EProg     |    y   |    n    |    y
 ----------|-----------------------------
@@ -38,7 +38,7 @@ for i in directories:
         print(i, " generated") 
     else:
         print(i, " exists")
-
+print("\n\n")
 
 
 #START Algorithmen und Datenstrukturen
@@ -74,7 +74,7 @@ print('[2/4] Diskrete Mathematik:')
 dm_ex_counter = 1
 dm_so_counter = 1
 dm_ex_url = 'http://www.crypto.ethz.ch/teaching/lectures/DM17/u0'+str(dm_ex_counter)+'.pdf'
-dm_so_url = ''
+dm_so_url = 'http://www.crypto.ethz.ch/teaching/lectures/DM17/l0'+str(dm_ex_counter)+'.pdf'
 
 try:
     while opener.open(dm_ex_url).getcode() == 200:
@@ -82,6 +82,15 @@ try:
         urllib.request.urlretrieve(dm_ex_url, 'Uebungen/DiskreteMathematik/u0'+str(dm_ex_counter)+'.pdf')
         dm_ex_counter += 1
         dm_ex_url = 'http://www.crypto.ethz.ch/teaching/lectures/DM17/u0'+str(dm_ex_counter)+'.pdf'
+except urllib.error.HTTPError:
+    pass
+
+try:
+    while opener.open(dm_so_url).getcode() == 200:
+        print(dm_so_url)
+        urllib.request.urlretrieve(dm_so_url, 'Uebungen/DiskreteMathematik/l0'+str(dm_so_counter)+'.pdf')
+        dm_so_counter += 1
+        dm_so_url = 'http://www.crypto.ethz.ch/teaching/lectures/DM17/l0'+str(dm_so_counter)+'.pdf'
 except urllib.error.HTTPError:
     pass
 
@@ -116,7 +125,7 @@ try:
             for chunk in r.iter_content(1024):
                 f.write(chunk)
         ep_mat_counter += 1
-        ep_mat_url = ep_url+str(ep_mat_counter)+'.pdf'
+        ep_mat_url = ep_url+str(ep_mat_counter)+'.zip'
 except urllib.error.HTTPError:
     pass
 
