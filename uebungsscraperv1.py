@@ -1,18 +1,33 @@
 '''
-Make sure you have a folder >Uebungen< with the subfolders >AlgorithmenUndDatenstrukturen<, >DiskreteMathematik<,
->EProg< and >LineareAlgebra< where you execute this script. Note that this is case-sensitive.
-
 Make sure you have >requests< installed -> pip install requests
+This project uses the WTFPL License
 '''
 
-import urllib.request, urllib.parse
+import urllib.request, urllib.parse, os, sys
 from urllib.request import Request, urlopen
-import requests
+try:
+    import requests
+except:
+    print('Please install the library "requests"')
+    sys.exit(0)
+
 
 user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20120101 Firefox/33.0'
 headers = {'User-Agent' : user_agent}
 opener = urllib.request.build_opener()
 opener.addheaders = [('User-Agent', user_agent)]
+
+
+#Generate folders if nonexistent
+directories = ["Uebungen/AlgorithmenUndDatenstrukturen", "Uebungen/DiskreteMathematik",
+               "Uebungen/EProg", "Uebungen/LineareAlgebra"]
+
+for i in directories:
+    if not os.path.isdir(i):
+        os.makedirs(i)
+        print("Folder generated: ", i) 
+
+sys.exit(0)
 
 
 #START Algorithmen und Datenstrukturen
