@@ -69,10 +69,13 @@ for link in ad_links:
     filename = 'Uebungen/AlgorithmenUndDatenstrukturen/'+split.path.split('/')[-1]
     link = 'https://www.cadmo.ethz.ch/education/lectures/HS17/DA/'+link
     print(link)
-    urllib.request.urlretrieve(link, filename)
+    if os.path.isfile(filename):
+        print("---skipped - already exists")
+    else:
+        urllib.request.urlretrieve(link, filename)
+        print("---downloaded")
 
 print('[1/4]\n\n')
-
 
 #START Diskrete Mathematik
 print('[2/4] Diskrete Mathematik:')
@@ -93,7 +96,11 @@ for link in dm_links:
     filename = 'Uebungen/DiskreteMathematik/'+split.path.split('/')[-1]
     link = 'http://www.crypto.ethz.ch/teaching/lectures/DM17/'+link
     print(link)
-    urllib.request.urlretrieve(link, filename)
+    if os.path.isfile(filename):
+        print("---skipped - already exists")
+    else:
+        urllib.request.urlretrieve(link, filename)
+        print("---downloaded")
 
 print('[2/4]\n\n')
 
@@ -118,10 +125,14 @@ for link in ep_links:
     split = urllib.parse.urlsplit(link)
     filename = 'Uebungen/EProg/'+split.path.split('/')[-1]
     print(link)
-    r = requests.get(link, allow_redirects=False, headers=headers)
-    with open(filename, 'wb') as f:
-        for chunk in r.iter_content(1024):
-            f.write(chunk)
+    if os.path.isfile(filename):
+        print("---skipped - already exists")
+    else:
+        r = requests.get(link, allow_redirects=False, headers=headers)
+        with open(filename, 'wb') as f:
+            for chunk in r.iter_content(1024):
+                f.write(chunk)
+        print("---downloaded")
     
 print('[3/4]\n\n')
 
@@ -146,7 +157,11 @@ for link in la_links:
     filename = 'Uebungen/LineareAlgebra/'+split.path.split('/')[-1]
     link = 'http://igl.ethz.ch/teaching/linear-algebra/la2017/'+link
     print(link)
-    urllib.request.urlretrieve(link, filename)
+    if os.path.isfile(filename):
+        print("---skipped - already exists")
+    else:
+        urllib.request.urlretrieve(link, filename)
+        print("---downloaded")
 
 print('[4/4]\n\n')
 
