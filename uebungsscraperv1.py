@@ -1,6 +1,17 @@
 '''
 Make sure you have >requests< installed -> pip install requests
 This project uses the WTFPL License
+
+Checklist | Uebung | Loesung | Material
+----------|-----------------------------
+AlgDat    |    y   |    y    |   n/a
+----------|-----------------------------
+DisMat    |    y   |    n    |   n/a
+----------|-----------------------------
+EProg     |    y   |    n    |    y
+----------|-----------------------------
+LinAlg    |    n   |    n    |   n/a
+
 '''
 
 import urllib.request, urllib.parse, os, sys
@@ -10,7 +21,6 @@ try:
 except:
     print('Please install the library "requests"')
     sys.exit(0)
-
 
 user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20120101 Firefox/33.0'
 headers = {'User-Agent' : user_agent}
@@ -25,9 +35,10 @@ directories = ["Uebungen/AlgorithmenUndDatenstrukturen", "Uebungen/DiskreteMathe
 for i in directories:
     if not os.path.isdir(i):
         os.makedirs(i)
-        print("Folder generated: ", i) 
+        print(i, " generated") 
+    else:
+        print(i, " exists")
 
-sys.exit(0)
 
 
 #START Algorithmen und Datenstrukturen
