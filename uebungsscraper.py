@@ -31,7 +31,8 @@ except:
 
 user_agent = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
 headers = {'User-Agent' : user_agent}
-
+link_counter = 0
+download_counter = 0
 
 #Generate folders if nonexistent
 directories = ["Uebungen/AlgorithmenUndDatenstrukturen", "Uebungen/DiskreteMathematik",
@@ -67,6 +68,7 @@ for link in ad_links:
     filename = 'Uebungen/AlgorithmenUndDatenstrukturen/'+split.path.split('/')[-1]
     link = 'https://www.cadmo.ethz.ch/education/lectures/HS17/DA/'+link
     print(link)
+    link_counter += 1
     if os.path.isfile(filename):
         print("---skipped - already exists")
     else:
@@ -75,6 +77,7 @@ for link in ad_links:
             for chunk in r.iter_content(1024):
                 f.write(chunk)
         print("---downloaded")
+        download_counter += 1
 
 print('[1/4]\n\n')
 
@@ -98,6 +101,7 @@ for link in dm_links:
     filename = 'Uebungen/DiskreteMathematik/'+split.path.split('/')[-1]
     link = 'http://www.crypto.ethz.ch/teaching/lectures/DM17/'+link
     print(link)
+    link_counter += 1
     if os.path.isfile(filename):
         print("---skipped - already exists")
     else:
@@ -106,6 +110,7 @@ for link in dm_links:
             for chunk in r.iter_content(1024):
                 f.write(chunk)
         print("---downloaded")
+        download_counter += 1
 
 print('[2/4]\n\n')
 
@@ -130,6 +135,7 @@ for link in ep_links:
     split = urllib.parse.urlsplit(link)
     filename = 'Uebungen/EProg/'+split.path.split('/')[-1]
     print(link)
+    link_counter += 1
     if os.path.isfile(filename):
         print("---skipped - already exists")
     else:
@@ -138,6 +144,7 @@ for link in ep_links:
             for chunk in r.iter_content(1024):
                 f.write(chunk)
         print("---downloaded")
+        download_counter += 1
     
 print('[3/4]\n\n')
 
@@ -161,6 +168,7 @@ for link in la_links:
     filename = 'Uebungen/LineareAlgebra/'+split.path.split('/')[-1]
     link = 'http://igl.ethz.ch/teaching/linear-algebra/la2017/'+link
     print(link)
+    link_counter += 1
     if os.path.isfile(filename):
         print("---skipped - already exists")
     else:
@@ -169,8 +177,9 @@ for link in la_links:
             for chunk in r.iter_content(1024):
                 f.write(chunk)
         print("---downloaded")
+        download_counter += 1
 
 print('[4/4]\n\n')
 
-
+print(link_counter,"files found and",download_counter,"new files downloaded.")
 input('\nEOF') #Just so Windows users don't get butthurt about not seeing the output
