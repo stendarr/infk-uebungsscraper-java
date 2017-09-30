@@ -29,7 +29,7 @@ except:
     sys.exit(0)
     
 
-user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20120101 Firefox/33.0'
+user_agent = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
 headers = {'User-Agent' : user_agent}
 
 
@@ -124,7 +124,7 @@ soup = BeautifulSoup(soup, 'html.parser')
 for link in soup.find_all('a'):
     ep_links.append(link.get('href'))
 
-del ep_links[0] #First link in list is 'None'
+del ep_links[0] #First link in list is `None`
 
 for link in ep_links:
     split = urllib.parse.urlsplit(link)
@@ -146,7 +146,6 @@ print('[3/4]\n\n')
 print('[4/4] Lineare Algebra:')
 la_link = 'http://igl.ethz.ch/teaching/linear-algebra/la2017/'
 la_links =[]
-user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20120101 Firefox/33.0'
 request = Request(la_link, headers={'User-Agent' : user_agent})
 soup = BeautifulSoup(urllib.request.urlopen(request), 'html.parser')
 
