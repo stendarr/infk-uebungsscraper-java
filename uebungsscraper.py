@@ -20,19 +20,17 @@ from html.parser import *
 try:
     import requests
 except:
-    print('Installing BeautifulSoup is NOT optional, m8')
+    print('Installing `requests` is NOT optional, m8')
     sys.exit(0)
 try:
     from bs4 import BeautifulSoup, SoupStrainer
 except:
-    print('Installing BeautifulSoup is NOT optional, m8')
+    print('Installing `BeautifulSoup` is NOT optional, m8')
     sys.exit(0)
     
 
 user_agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20120101 Firefox/33.0'
 headers = {'User-Agent' : user_agent}
-opener = urllib.request.build_opener()
-opener.addheaders = [('User-Agent', user_agent)]
 
 
 #Generate folders if nonexistent
@@ -72,10 +70,14 @@ for link in ad_links:
     if os.path.isfile(filename):
         print("---skipped - already exists")
     else:
-        urllib.request.urlretrieve(link, filename)
+        r = requests.get(link, allow_redirects=False, headers=headers)
+        with open(filename, 'wb') as f:
+            for chunk in r.iter_content(1024):
+                f.write(chunk)
         print("---downloaded")
 
 print('[1/4]\n\n')
+
 
 #START Diskrete Mathematik
 print('[2/4] Diskrete Mathematik:')
@@ -99,7 +101,10 @@ for link in dm_links:
     if os.path.isfile(filename):
         print("---skipped - already exists")
     else:
-        urllib.request.urlretrieve(link, filename)
+        r = requests.get(link, allow_redirects=False, headers=headers)
+        with open(filename, 'wb') as f:
+            for chunk in r.iter_content(1024):
+                f.write(chunk)
         print("---downloaded")
 
 print('[2/4]\n\n')
@@ -119,7 +124,7 @@ soup = BeautifulSoup(soup, 'html.parser')
 for link in soup.find_all('a'):
     ep_links.append(link.get('href'))
 
-del ep_links[0]
+del ep_links[0] #First link in list is 'None'
 
 for link in ep_links:
     split = urllib.parse.urlsplit(link)
@@ -160,10 +165,13 @@ for link in la_links:
     if os.path.isfile(filename):
         print("---skipped - already exists")
     else:
-        urllib.request.urlretrieve(link, filename)
+        r = requests.get(link, allow_redirects=False, headers=headers)
+        with open(filename, 'wb') as f:
+            for chunk in r.iter_content(1024):
+                f.write(chunk)
         print("---downloaded")
 
 print('[4/4]\n\n')
 
 
-input('EOF') #Just so Windows users don't get butthurt about not seeing the output
+input('\nEOF') #Just so Windows users don't get butthurt about not seeing the output
