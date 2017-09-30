@@ -6,4 +6,4 @@ Currently only works for the first semester of Computer Science Bsc.
 Python3 and the `requests` and `bs4` (BeautifulSoup4) library. (Use `pip install requests` and `pip install bs4`)
 
 ## "XY doesn't work"
-Fix it yourself. Or open an issue if you think I'm not already working on it.
+Fix it yourself. Or open an issue.
