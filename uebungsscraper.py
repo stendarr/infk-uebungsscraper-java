@@ -1,6 +1,7 @@
 '''
 Make sure you have `requests` and `bs4` installed -> pip install requests/bs4
-Check README.md and LICENSE before using
+
+Check README.md and LICENSE before using this program.
 
 Checklist | Uebung | Loesung | Material
 ----------|--------|---------|----------
