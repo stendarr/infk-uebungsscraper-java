@@ -7,3 +7,4 @@ Python3 and the `requests` and `bs4` (BeautifulSoup4) library. (Use `pip install
 
 ## "XY doesn't work"
 Fix it yourself. Or open an issue.
+If you find a serious bug though, I'll buy you a beer.
