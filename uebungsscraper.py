@@ -41,9 +41,9 @@ directories = ["Uebungen/AlgorithmenUndDatenstrukturen", "Uebungen/DiskreteMathe
 for i in directories:
     if not os.path.isdir(i):
         os.makedirs(i)
-        print("This folder was generated: ",i) 
+        print("This folder was generated:   ",i) 
     else:
-        print("This folder already exists: ",i)
+        print("This folder already exists:  ",i)
 print("\n\n")
 
 
