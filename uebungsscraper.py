@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 '''
 Make sure you have `requests` and `bs4` installed -> pip install requests/bs4
 
