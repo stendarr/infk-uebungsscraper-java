@@ -20,6 +20,7 @@ LinAlg    |    y   |    y    |    y
 import urllib.request, urllib.parse, os, sys, http.client
 from urllib.request import Request, urlopen
 from html.parser import *
+from sys import platform
 try:
     import requests
 except:
@@ -185,4 +186,5 @@ for link in la_links:
 print('[4/4]\n\n')
 
 print(link_counter,"files found and",download_counter,"new files downloaded.")
-input('\nEOF') #Just so Windows users don't get butthurt about not seeing the output
+if platform == "win32":
+    input('\nEOF') #Just so Windows users don't get butthurt about not seeing the output
