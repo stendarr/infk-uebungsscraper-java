@@ -20,6 +20,7 @@ LinAlg    |    y   |    y    |    y
 import urllib.request, urllib.parse, os, sys, http.client
 from urllib.request import Request, urlopen
 from html.parser import *
+from sys import platform
 try:
     import requests
 except:
@@ -30,7 +31,7 @@ try:
 except:
     print('Installing `BeautifulSoup` is NOT optional, m8')
     sys.exit(0)
-    
+
 
 user_agent = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'
 headers = {'User-Agent' : user_agent}
@@ -44,7 +45,7 @@ directories = ["Uebungen/AlgorithmenUndDatenstrukturen", "Uebungen/DiskreteMathe
 for i in directories:
     if not os.path.isdir(i):
         os.makedirs(i)
-        print("This folder was generated:   ",i) 
+        print("This folder was generated:   ",i)
     else:
         print("This folder already exists:  ",i)
 print("\n\n")
@@ -148,7 +149,7 @@ for link in ep_links:
                 f.write(chunk)
         print("---downloaded")
         download_counter += 1
-    
+
 print('[3/4]\n\n')
 
 
@@ -185,4 +186,5 @@ for link in la_links:
 print('[4/4]\n\n')
 
 print(link_counter,"files found and",download_counter,"new files downloaded.")
-input('\nEOF') #Just so Windows users don't get butthurt about not seeing the output
+if platform == "win32":
+    input('\nEOF') #Just so Windows users don't get butthurt about not seeing the output
