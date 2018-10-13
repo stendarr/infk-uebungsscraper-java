@@ -88,6 +88,7 @@ public class Main {
 		for (Element tag : laRelevantTags) {
 			downloadFromTag(tag, "LinAlg/Uebungen/", laMasterUrl);
 		}
+		// Notes
 		String lanRelevantHtml = laHtml.split("bersicht der Vorlesung</h3>", 2)[1]
 				.split("<p><a class=\"a-int\" href=\"https://www.vid", 2)[0];
 		ArrayList<Element> lanRelevantTags = Jsoup.parse(lanRelevantHtml, "UTF-8").select("a[href]");
