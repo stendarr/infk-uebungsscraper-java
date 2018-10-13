@@ -3,3 +3,5 @@ Currently only works for the first semester of Computer Science BSc.
 
 If you want to build it yourself, you need Jsoup and Apache Commons IO.
 You can also just use the jar file in the build folder: `java -jar us.jar`
+
+Don't forget to activate your VPN if you're not in the ETH network, otherwise you can't download the top secret LinAlg-Notes.
