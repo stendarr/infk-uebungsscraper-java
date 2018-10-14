@@ -11,9 +11,11 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.io.FileUtils;
-import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
+
+// "You know, we are all hackers, for us the source code is the documentation!" 
+// - Gustavo Alonso, Vorlesung Parallel and Distributed Databases (Datum unbekannt)
 
 public class Main {
 
@@ -82,7 +84,7 @@ public class Main {
 						.split("<a class=\"accordionAnchor\" href=\"#\"><span class=\"title\">Lit", 2)[0];
 				break;
 			} catch (FileNotFoundException e) {
-				if (++countTries == 3) {
+				if (++countTries == 4) {
 					System.out.println("\n===== [EProg failed badly - usually you can fix this by trying again] =====\n"
 							+ e + "\n");
 					break;
@@ -150,9 +152,12 @@ public class Main {
 				FileUtils.copyURLToFile(url, file);
 				System.out.println("[Downloaded " + directory.split("/")[0] + "] " + url + " into " + filename);
 				return true;
-			} catch (HttpStatusException | FileNotFoundException e) {
+			} catch (IOException e) {
 				System.out.println("\n[Failed " + directory.split("/")[0] + "] " + url);
-				System.out.println("[Excption] " + e + "\n");
+				System.out.println("[Exception] "
+						+ (e.toString().contains(
+								"403") ? "403 FORBIDDEN - Please connect to the ETH Network or VPN and try again" : e)
+						+ "\n");
 				return false;
 			}
 		} else {
@@ -166,5 +171,10 @@ public class Main {
 			scanner.useDelimiter("\\A");
 			return scanner.hasNext() ? scanner.next() : "";
 		}
+	}
+
+	public static boolean inEthNetwork() {
+
+		return false;
 	}
 }
