@@ -18,6 +18,8 @@ import org.jsoup.nodes.Element;
 // - Gustavo Alonso, Vorlesung Parallel and Distributed Databases (Datum unbekannt)
 
 public class Main {
+	static String output;
+	static boolean outputEnable = true;
 
 	public static void main(String[] args) throws IOException {
 		AtomicInteger linkCounter = new AtomicInteger();
@@ -67,18 +69,17 @@ public class Main {
 		String dmHtml = "";
 		try {
 			dmHtml = readStringFromURL(dmMasterUrl);
+			String dmRelevantHtml = dmHtml.split("tter</h3>", 2)[1].split("bungsgruppen</h3", 2)[0];
+			ArrayList<Element> dmRelevantTags = Jsoup.parse(dmRelevantHtml, "UTF-8").select("a[href]");
+			for (Element tag : dmRelevantTags) {
+				if (downloadFromTag(tag, "DiskMat/Uebungen/", dmMasterUrl)) {
+					downloadCounter.incrementAndGet();
+				}
+				linkCounter.incrementAndGet();
+			}
 		} catch (Exception e) {
 			if (e.toString().contains("500")) {
 				System.out.println("\n[Exception DiskMat] 500 They fucked up - Try again later\n");
-			} else {
-				String dmRelevantHtml = dmHtml.split("tter</h3>", 2)[1].split("bungsgruppen</h3", 2)[0];
-				ArrayList<Element> dmRelevantTags = Jsoup.parse(dmRelevantHtml, "UTF-8").select("a[href]");
-				for (Element tag : dmRelevantTags) {
-					if (downloadFromTag(tag, "DiskMat/Uebungen/", dmMasterUrl)) {
-						downloadCounter.incrementAndGet();
-					}
-					linkCounter.incrementAndGet();
-				}
 			}
 		}
 		// END DiskMath
@@ -141,6 +142,9 @@ public class Main {
 		// END LinAlg
 
 		// Print results - end of program
+		if (outputEnable) {
+			System.out.println(output);
+		}
 		String[] thankyous = { "Thank you for flying Emirates!",
 				"Thank you for flying Delta Business Express. We hope you enjoyed giving us the business as much as we enjoyed taking you for a ride.",
 				"Thank you for smoking!", "tank you come again",
@@ -175,7 +179,7 @@ public class Main {
 				return false;
 			}
 		} else {
-			System.out.println("[Skipped " + directory.split("/")[0] + "] " + url);
+			output += "[Skipped " + directory.split("/")[0] + "] " + url + "\n";
 			return false;
 		}
 	}
