@@ -39,7 +39,7 @@ public class Main {
 				}
 				linkCounter.incrementAndGet();
 			} else {
-				if (!sTag.contains("skript.pdf")) {
+				if (!sTag.contains("skript.pdf") && (!sTag.contains("book"))) {
 					if (downloadFromTag(tag, "AD/Uebungen/", adBuilderUrl)) {
 						downloadCounter.incrementAndGet();
 					}
@@ -64,13 +64,22 @@ public class Main {
 
 		// START DiskMath
 		String dmMasterUrl = "http://www.crypto.ethz.ch/teaching/lectures/DM18/";
-		String dmRelevantHtml = readStringFromURL(dmMasterUrl).split("tter</h3>", 2)[1].split("bungsgruppen</h3", 2)[0];
-		ArrayList<Element> dmRelevantTags = Jsoup.parse(dmRelevantHtml, "UTF-8").select("a[href]");
-		for (Element tag : dmRelevantTags) {
-			if (downloadFromTag(tag, "DiskMat/Uebungen/", dmMasterUrl)) {
-				downloadCounter.incrementAndGet();
+		String dmHtml = "";
+		try {
+			dmHtml = readStringFromURL(dmMasterUrl);
+		} catch (Exception e) {
+			if (e.toString().contains("500")) {
+				System.out.println("\n[Exception DiskMat] 500 They fucked up - Try again later\n");
+			} else {
+				String dmRelevantHtml = dmHtml.split("tter</h3>", 2)[1].split("bungsgruppen</h3", 2)[0];
+				ArrayList<Element> dmRelevantTags = Jsoup.parse(dmRelevantHtml, "UTF-8").select("a[href]");
+				for (Element tag : dmRelevantTags) {
+					if (downloadFromTag(tag, "DiskMat/Uebungen/", dmMasterUrl)) {
+						downloadCounter.incrementAndGet();
+					}
+					linkCounter.incrementAndGet();
+				}
 			}
-			linkCounter.incrementAndGet();
 		}
 		// END DiskMath
 
@@ -154,10 +163,15 @@ public class Main {
 				return true;
 			} catch (IOException e) {
 				System.out.println("\n[Failed " + directory.split("/")[0] + "] " + url);
-				System.out.println("[Exception] "
-						+ (e.toString().contains(
-								"403") ? "403 FORBIDDEN - Please connect to the ETH Network or VPN and try again" : e)
-						+ "\n");
+				if (e.toString().contains("403")) {
+					System.out.println(
+							"[Exception] 403 You fucked up - Please connect to the ETH Network or VPN and try again");
+					return false;
+				} else if (e.toString().contains("500")) {
+					System.out.println("[Exception] 500 They fucked up - Try again later");
+					return false;
+				}
+				System.out.println("[Exception]\n" + e + "\n");
 				return false;
 			}
 		} else {
