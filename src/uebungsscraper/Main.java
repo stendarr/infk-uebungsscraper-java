@@ -55,7 +55,7 @@ public class Main {
 		for (Element tag : adnRelevantTags) {
 			String sTag = tag.toString();
 			if (!(sTag.contains("index.html") || sTag.contains("moodle") || sTag.contains("disclaimer.html")
-					|| sTag.contains("copyright.html") || sTag.contains("skript.pdf"))) {
+					|| sTag.contains("copyright.html") || sTag.contains("skript.pdf") || sTag.contains("watch"))) {
 				if (downloadFromTag(tag, "AD/Slides/", adBuilderUrl)) {
 					downloadCounter.incrementAndGet();
 				}
