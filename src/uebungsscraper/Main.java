@@ -159,6 +159,9 @@ public class Main {
 		String[] tmp = link.split("/");
 		String filename = directory + tmp[tmp.length - 1];
 		URL url = new URL((builderUrl + link).replace(" ", "%20"));
+		if (url.toString().replaceFirst("http", "").contains("http")) {
+			return false;
+		}
 		File file = new File(filename);
 		if (!new File(filename).isFile()) {
 			try {
