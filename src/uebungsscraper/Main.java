@@ -35,14 +35,13 @@ public class Main {
 		ArrayList<Element> adRelevantTags = Jsoup.parse(adRelevantHtml, "UTF-8").select("a[href]");
 		for (Element tag : adRelevantTags) {
 			String sTag = tag.toString();
-			if (sTag.contains("graphentheorie.pdf") || sTag.contains("Programmieraufgaben") || sTag.contains("Vorlage")
-					|| sTag.contains("Anleitung")) {
+			if (sTag.contains("Programmieraufgaben") || sTag.contains("Vorlage") || sTag.contains("Anleitung")) {
 				if (downloadFromTag(tag, "AD/Programmieraufgaben/", adBuilderUrl)) {
 					downloadCounter.incrementAndGet();
 				}
 				linkCounter.incrementAndGet();
 			} else {
-				if (!sTag.contains("skript.pdf") && (!sTag.contains("book"))) {
+				if (!sTag.contains("graphentheorie.pdf") && !sTag.contains("skript.pdf") && (!sTag.contains("book"))) {
 					if (downloadFromTag(tag, "AD/Uebungen/", adBuilderUrl)) {
 						downloadCounter.incrementAndGet();
 					}
