@@ -1,4 +1,4 @@
-A lit Java program for ETH students to automatically download all their exercises and all available solutions and material.
+A Java program for ETH students to automatically download all their exercises and all available solutions and material.
 Currently only works for the first semester of Computer Science BSc.
 
 If you're a noob and just want to use it go to [Releases](https://gitlab.ethz.ch/dominik/uebungsscraper-java/tags) and download the most recent version.
