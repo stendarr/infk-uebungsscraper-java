@@ -193,7 +193,7 @@ public class Main {
 			return scanner.hasNext() ? scanner.next() : "";
 		}
 	}
-
+//TODO remove redundant function 
 	public static boolean inEthNetwork() {
 
 		return false;
